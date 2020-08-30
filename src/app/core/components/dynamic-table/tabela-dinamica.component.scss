@@ -1,0 +1,16 @@
+.tabela-principal {
+    p-table ::ng-deep {
+        font-size: 11px;
+        .ui-table {
+            .ui-table-thead > tr > th {
+                padding: .25em .5em;
+            }
+            .ui-table-tbody > tr {
+                overflow-wrap: break-word;
+                td {
+                    padding: .25em .5em;
+                }
+            }
+        }
+    }
+}

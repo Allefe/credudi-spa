@@ -1,0 +1,4 @@
++ @angular/common@6.1.10
+updated 1 package and audited 41977 packages in 12.841s
+found 7 vulnerabilities (2 low, 3 moderate, 2 high)
+  run `npm audit fix` to fix them, or `npm audit` for details

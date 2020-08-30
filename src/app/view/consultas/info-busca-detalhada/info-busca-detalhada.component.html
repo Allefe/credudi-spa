@@ -1,0 +1,257 @@
+<pxt-toolbar-buttons *ngIf="!mostrarDialogBusca">
+  <div class="ui-toolbar-group-left">
+    <div class="ui-g">
+      <div class="ui-g-12 ui-lg-4">
+        <button pButton type="button" label="Nova Consulta" icon="ui-icon-search"
+          (click)="abrirFecharDialogBusca('abrir')"></button>
+      </div>
+    </div>
+  </div>
+</pxt-toolbar-buttons>
+
+<div class="ui-g ui-fluid" *ngIf="renderizaTela">
+  <div class="ui-g-12 pb-0">
+    <div class="card ui-g-12">
+      <p-tabView id="tab">
+        <p-tabPanel header="Localização - Informações Básicas" leftIcon="ui-icon-assignment-ind">
+          <p-panel>
+            <p-header>
+              Dados Cadastro Pessoa <i class="ui-icon-person" style="vertical-align: middle;"></i>
+            </p-header>
+            <div class="ui-g-12 ui-lg-6">
+              <div class="ui-lg-12 ui-g-12">
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>CPF:</b></span>
+                  <span>&nbsp;{{retornoInfoBasico.retorno.cpf}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Nome:</b></span>
+                  <span>&nbsp;{{retornoInfoBasico.retorno.nome}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Nascimento:</b></span>
+                  <span>&nbsp;{{retornoInfoBasico.retorno.nascimento}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Idade:</b></span>
+                  <span>&nbsp;{{retornoInfoBasico.retorno.idade}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12 ui-lg-6">
+              <div class="ui-lg-12 ui-g-12">
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Sexo:</b></span>
+                  <span>&nbsp;{{retornoInfoBasico.retorno.sexo}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Nome da Mãe:</b></span>
+                  <span>&nbsp;{{retornoInfoBasico.retorno.nomedamae}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Signo:</b></span>
+                  <span>&nbsp;{{retornoInfoBasico.retorno.signo}}</span>
+                </div>
+              </div>
+            </div>
+          </p-panel>
+          <div class="ui-g-12">
+            <p-panel>
+              <p-header>
+                E-mails <i class="ui-icon-contact-mail" style="vertical-align: middle;"></i>
+              </p-header>
+              <div class="ui-g" *ngIf="emailsInfoBasico.length > 0">
+                <div class="ui-g-12">
+                  <div class="ui-g-12">
+                    <div class="ui-g-6 p-0" *ngFor="let item of emailsInfoBasico">
+                      <span style="font-size: 10px; text-transform: uppercase;">
+                        <h4><b>{{item.email}}</b></h4>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+          <div class="ui-g-12 ui-lg-12">
+            <div class="ui-g-12 ui-lg-12" style="background-color: #2f4050; color: white;"> Endereços <i
+                class="ui-icon-location-on" style="vertical-align: middle;"></i></div>
+            <tabela-dinamica [value]="enderecosInfoBasico" [columns]="colunasTabelaEnderecoInfoBasica" [rows]="5">
+            </tabela-dinamica>
+          </div>
+          <div class="ui-g-12 ui-lg-12">&nbsp;</div>
+          <div class="ui-g-12 ui-lg-12">
+            <div class="ui-g-12 ui-lg-12" style="background-color: #2f4050; color: white;"> Telefones <i
+                class="ui-icon-local-phone" style="vertical-align: middle;"></i></div>
+            <tabela-dinamica [value]="telefonesInfoBasico" [columns]="colunasTabelaTelefonesInfoBasica" [rows]="5">
+            </tabela-dinamica>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Localiza por Documento" leftIcon="ui-icon-assignment">
+          <p-panel>
+            <p-header>
+              Dados Cadastro Pessoa <i class="ui-icon-person" style="vertical-align: middle;"></i>
+            </p-header>
+            <div class="ui-g-12 ui-lg-6">
+              <div class="ui-lg-12 ui-g-12">
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>CPF:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.cpf}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Nome:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.nome}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Nascimento:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.nascimento}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Idade:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.idade}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Sexo:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.sexo}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Nome da Mãe:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.nomedamae}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="ui-g-12 ui-lg-6">
+              <div class="ui-lg-12 ui-g-12">
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Codigo CBO:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.codigocbo}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Descrição CBO:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.descricaocbo}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Escolaridade:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.escolaridade}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Signo:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.signo}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Dependentes:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.dependentes}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Estado Civil:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.estadocivil}}</span>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                  <span><b>Renda:</b></span>
+                  <span>&nbsp;{{retornoLocalizaDocumento.retorno.cadastral.renda}}</span>
+                </div>
+              </div>
+            </div>
+          </p-panel>
+          <div class="ui-g-12">
+            <p-panel>
+              <p-header>
+                E-mails <i class="ui-icon-contact-mail" style="vertical-align: middle;"></i>
+              </p-header>
+              <div class="ui-g" *ngIf="emailsLocalizaDocumento.length > 0">
+                <div class="ui-g-12">
+                  <div class="ui-g-12">
+                    <div class="ui-g-6 p-0" *ngFor="let item of emailsLocalizaDocumento">
+                      <span style="font-size: 10px; text-transform: uppercase;">
+                        <h4><b>{{item.email}}</b></h4>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+          <div class="ui-g-12 ui-lg-12">
+            <div class="ui-g-12 ui-lg-12" style="background-color: #2f4050; color: white;"> Endereços <i
+                class="ui-icon-location-on" style="vertical-align: middle;"></i></div>
+            <tabela-dinamica [value]="enderecosLocalizaDocumento" [columns]="colunasTabelaEnderecoLocalizaDocumento" [rows]="5">
+            </tabela-dinamica>
+          </div>
+          <div class="ui-g-12 ui-lg-12">&nbsp;</div>
+          <div class="ui-g-12 ui-lg-12">
+            <div class="ui-g-12 ui-lg-12" style="background-color: #2f4050; color: white;"> Telefones <i
+                class="ui-icon-local-phone" style="vertical-align: middle;"></i></div>
+            <tabela-dinamica [value]="telefonesLocalizaDocumento" [columns]="colunasTabelaTelefonesLocalizaDocumento" [rows]="5">
+            </tabela-dinamica>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog busca -->
+<p-dialog #dialogBusca header="Consulta Detalhada CPF/CNPJ" modal="true" showEffect="fade" width="400" minHeight="150"
+  [(visible)]="mostrarDialogBusca" [responsive]="true">
+
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 pb-0">
+      <div class="ui-g-12 ui-lg-12 pt-5">
+        <div class="ui-g-12 ui-lg-12" style="padding-top: 8px;">
+          <span class="ui-float-label">
+            <p-dropdown id="uf" [options]="unidadesFederativas" [autoDisplayFirst]="false"
+              [style]="{'width':'100%'}" [(ngModel)]="filtroUf" [filter]="true" [showClear]="true">
+            </p-dropdown>
+            <label for="uf">U.F</label>
+          </span>
+        <!--
+          <p-autoComplete id="acAdvanced" [(ngModel)]="filtroUf" [suggestions]="unidadesFederativas" (completeMethod)="filterBrands($event)" [size]="30"
+            [minLength]="1" placeholder="U.F" [dropdown]="true" (onDropdownClick)="handleACDropdownClick()">
+            <ng-template let-brand pTemplate="item">
+                <div class="ui-helper-clearfix">
+                    <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand}}</div>
+                </div>
+            </ng-template>
+          </p-autoComplete>
+        -->
+        </div>
+      </div>
+      <div class="ui-g-12 ui-lg-12 pt-5">
+        <div class="ui-g-12 ui-lg-3">
+          <p-radioButton name="groupname" value="cpf" label="CPF" [(ngModel)]="tipoBusca"
+            (click)="limparFiltros('cnpj')">
+          </p-radioButton>
+        </div>
+        <div class="ui-g-12 ui-lg-3">
+          <p-radioButton name="groupname" value="cnpj" label="CNPJ" [(ngModel)]="tipoBusca"
+            (click)="limparFiltros('cpf')">
+          </p-radioButton>
+        </div>
+        <div class="ui-g-12 ui-lg-6 pt-10" *ngIf="tipoBusca == 'cpf'">
+          <span class="md-inputfield">
+            <p-inputMask pInputText [(ngModel)]="filtroCpf" mask="999.999.999-99" (onBlur)="verificarCpf(filtroCpf)">
+            </p-inputMask>
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="cpfValido == false">CPF inválido</div>
+            <label>CPF</label>
+          </span>
+        </div>
+        <div class="ui-g-12 ui-lg-6 pt-10" *ngIf="tipoBusca == 'cnpj'">
+          <span class="md-inputfield">
+            <p-inputMask pInputText [(ngModel)]="filtroCnpj" mask="99.999.999/9999-99"
+            (onBlur)="verificarCnpj(filtroCnpj)"></p-inputMask>
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="cnpjValido == false">CNPJ inválido</div>
+            <label>CNPJ</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-lg-6 ">
+        <button pButton type="button" class="grey-btn flat" label="Buscar" icon="ui-icon-search" (click)="buscar()"></button>
+      </div>
+      <div class="ui-g-12 ui-lg-6 ">
+        <button pButton type="button" class="red-btn flat" label="Cancelar" icon="ui-icon-cancel"
+          (click)="abrirFecharDialogBusca('fechar')"></button>
+      </div>
+    </div>
+  </div>
+
+</p-dialog>

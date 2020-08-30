@@ -1,0 +1,47 @@
+<pxt-loading [loading]="isLoading" ></pxt-loading>
+<router-outlet *ngIf="isAuthRoute" name="auth"></router-outlet>
+<div *ngIf="!isAuthRoute" class="layout-wrapper" [ngClass]="{'layout-compact':layoutCompact}" (click)="onLayoutClick()">
+
+    <div #layoutContainer class="layout-container"
+            [ngClass]="{'menu-layout-static': !isOverlay(),
+            'menu-layout-overlay': isOverlay(),
+            'layout-menu-overlay-active': overlayMenuActive,
+            'menu-layout-horizontal': isHorizontal(),
+            'menu-layout-slim': isSlim(),
+            'layout-menu-static-inactive': staticMenuDesktopInactive,
+            'layout-menu-static-active': staticMenuMobileActive}">
+
+        <app-topbar></app-topbar>
+
+        <div class="layout-menu" [ngClass]="{'layout-menu-dark':darkMenu}" (click)="onMenuClick($event)">
+            <p-scrollPanel #scrollPanel [style]="{height: '100%'}">
+                <app-inline-profile *ngIf="profileMode=='inline'&&!isHorizontal()"></app-inline-profile>
+                <app-menu [reset]="resetMenu"></app-menu>
+            </p-scrollPanel>
+        </div>
+
+        <div class="layout-main">
+
+            <p-confirmDialog [key]="KEY_DIALOG_HTTP_SERVICE"></p-confirmDialog>
+            <p-confirmDialog></p-confirmDialog>
+
+            <app-breadcrumb></app-breadcrumb>
+
+            <!-- <pxt-mensagem-dialog [display]="mostrarDialogMensagem" ></pxt-mensagem-dialog> -->
+
+            <div class="layout-content">
+
+                <p-toast key="pxt-notificacao" ></p-toast>
+
+                <router-outlet></router-outlet>
+
+                <app-footer></app-footer>
+            </div>
+        </div>
+
+        <app-rightpanel></app-rightpanel>
+
+        <div class="layout-mask"></div>
+    </div>
+
+</div>

@@ -1,0 +1,30 @@
+:host ::ng-deep button {
+    margin-right: .25em;
+}
+
+.stickyMode {
+    position: sticky;
+    top: 68px;
+    z-index: 1;
+}
+/* @media (max-width: 600px) {
+    .stickyMode {
+        position: sticky;
+        top: 52px;
+        z-index: 1;
+    }
+}
+@media (min-width: 601px) {
+    .stickyMode {
+        position: sticky;
+        top: px;
+        z-index: 1;
+    }
+}
+@media (min-width: 1024px) {
+    .stickyMode {
+        position: sticky;
+        top: 68px;
+        z-index: 1;
+    }
+} */

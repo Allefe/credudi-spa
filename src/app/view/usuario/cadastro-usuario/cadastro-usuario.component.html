@@ -1,0 +1,144 @@
+<pxt-toolbar-buttons>
+  <div class="ui-toolbar-group-left">
+    <div class="ui-g">
+      <div class="ui-g-12 ui-lg-3">
+        <button pButton type="button" label="Voltar" icon="ui-icon-keyboard-backspace"
+          [routerLink]="'/usuario/consulta'"></button>
+      </div>
+      <div class="ui-g-12 ui-lg-3" *ngIf="!editando">
+        <button pButton type="button" label="Salvar" icon="ui-icon-save" (click)="salvar()"></button>
+      </div>
+      <div class="ui-g-12 ui-lg-3" *ngIf="editando">
+        <button pButton type="button" label="Atualizar" icon="ui-icon-autorenew" (click)="atualizar()"></button>
+      </div>
+    </div>
+  </div>
+</pxt-toolbar-buttons>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 pb-0">
+    <div class="card ui-g-12">
+      <p-panel>
+        <p-header>
+          Usuário <i class="ui-icon-person-add" style="vertical-align: middle;"></i>
+        </p-header>
+        <div class="ui-g ui-fluid" *ngIf="senhaFraca">
+          <div class="ui-g-12 pb-0">
+            <div class="ui-messages ui-widget ui-corner-all ui-messages-info" style="margin: 0 0 1em 0; display: block">
+              <div class="ui-g-12 pb-0" style="color: white">
+                <span class="ui-messages-icon" style="font-size: 14px;"><i class="material-icons" style="color: white;">info</i></span>
+                <span class="ui-messages-summary" style="font-size: 15px;" >INFORMAÇÃO! A senha escolhida é muito fraca, altere para uma mais forte.</span>
+              </div>
+              <br>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="ui-g">
+          <div class="ui-g ui-g-12">
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="md-inputfield">
+                <input pInputText type="text" [(ngModel)]="usuario.codigo" [disabled]="true" numbersOnly>
+                <label>Código</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="md-inputfield">
+                <input pInputText type="text" [(ngModel)]="usuario.nome" uppercase>
+                <label>Nome</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3" style="padding-top: 8px;">
+              <span class="ui-float-label">
+                <p-dropdown id="perfis" 
+                  [options]="perfis" 
+                  [autoDisplayFirst]="false" 
+                  [style]="{'width':'100%'}"
+                  [(ngModel)]="usuario.codigoPerfil">
+                </p-dropdown>
+                <label for="perfis">Perfil</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="ui-float-label">
+                <p-calendar id="dataCadastro" 
+                  dateFormat="dd/mm/yy" 
+                  [showIcon]="true" 
+                  [locale]="localePt"
+                  [showButtonBar]="true" 
+                  [(ngModel)]="usuario.dataCadastro"
+                  [disabled]="editando">
+                </p-calendar>
+                <label for="dataCadastro">Data Cadastro</label>
+              </span>
+            </div>
+          </div>
+          <div class="ui-g ui-g-12">
+            <div class="ui-g-12 ui-lg-3" style="padding-top: 7px;">
+              <div class="ui-inputgroup">
+                <span class="md-inputfield">
+                  <input type="text" pInputText>
+                  <label>Empresa</label>
+                </span>
+                <span class="ui-inputgroup-addon"><i class="material-icons">search</i></span>
+                <span class="ui-inputgroup-addon"><i class="material-icons">backspace</i></span>
+              </div>
+            </div>
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="md-inputfield">
+                <input pInputText type="text" [(ngModel)]="usuario.login" uppercase>
+                <label>Login</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3" style="padding-top: 5px;" *ngIf="!editando">
+              <div class="ui-inputgroup">
+                <span class="md-inputfield">
+                  <input pInputText [(type)]="tipoCampo" [(ngModel)]="usuario.senha">
+                  <label>Senha</label>
+                </span>
+                <span class="ui-messages-icon"><i class="material-icons" (click)="alterarCampoSenha()">{{ iconView }}</i></span>
+              </div>
+              <password-strength-meter [password]="usuario.senha" [enableFeedback]="false" (strengthChange)="onPasswordStrengthChanged($event)"></password-strength-meter>
+            </div>
+            <div class="ui-g-12 ui-lg-3" style="padding-top: 7px;">
+              <span class="ui-float-label">
+                <p-dropdown id="status" 
+                  [options]="status" 
+                  [autoDisplayFirst]="false" 
+                  [style]="{'width':'100%'}" 
+                  [(ngModel)]="usuario.status">
+                </p-dropdown>
+                <label for="status">Status</label>
+              </span>
+            </div>
+          </div>
+          <div class="ui-g ui-g-12" *ngIf="usuario.status == 'BLOQUEADO'">
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="ui-float-label">
+                <p-calendar id="dataCadastro" 
+                  dateFormat="dd/mm/yy" 
+                  [showIcon]="true" 
+                  [locale]="localePt" 
+                  [showButtonBar]="true" 
+                  [(ngModel)]="usuario.dataInicioBloqueio">
+                </p-calendar>
+                <label for="dataCadastro">Data Início Bloqueio</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="ui-float-label">
+                <p-calendar id="dataCadastro" 
+                  dateFormat="dd/mm/yy" 
+                  [showIcon]="true" 
+                  [locale]="localePt"
+                  [showButtonBar]="true" 
+                  [(ngModel)]="usuario.dataFimBloqueio">
+                </p-calendar>
+                <label for="dataCadastro">Data Fim Bloqueio</label>
+              </span>
+            </div>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+  </div>

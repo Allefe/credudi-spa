@@ -1,0 +1,246 @@
+<div class="ui-g-12">
+  <div class="card card-w-title">
+    <p-tabView id="tab" (onChange)="onTabChange($event)">
+
+      <!-- PERFIS DE ACESSO -->
+
+      <p-tabPanel header="Perfis de Acesso" leftIcon="ui-icon-security">
+        <pxt-toolbar-buttons *ngIf="editandoPerfil">
+          <div class="ui-toolbar-group-left">
+            <div class="ui-g">
+              <div class="ui-g-12 ui-lg-3">
+                <button pButton type="button" label="Salvar" icon="ui-icon-save" pTooltip="Salvar Perfil"></button>
+              </div>
+            </div>
+          </div>
+        </pxt-toolbar-buttons>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 pb-0">
+            <p-panel id="addDetalhe">
+              <div class="ui-g">
+                <div class="ui-g ui-g-12">
+                  <div class="ui-g-12 ui-lg-2 pt-10">
+                    <span class="md-inputfield">
+                      <input pInputText type="number" [(ngModel)]="perfil.codigo" [disabled]="true" numbersOnly>
+                      <label>Código</label>
+                    </span>
+                  </div>
+                  <div class="ui-g-12 ui-lg-4 pt-10">
+                    <span class="md-inputfield">
+                      <input pInputText type="text" [(ngModel)]="perfil.descricao" uppercase>
+                      <label>Descrição</label>
+                    </span>
+                  </div>
+                  <div class="ui-g-12 ui-lg-5 pt-10">
+                    <span class="md-inputfield">
+                      <input pInputText type="text" [(ngModel)]="perfil.observacao" uppercase>
+                      <label>Observação</label>
+                    </span>
+                  </div>
+                  <div class="ui-g-12 ui-lg-1 pt-10">
+                    <button pButton type="button" icon="ui-icon-save" (click)="salvarPerfil()" pTooltip="Salvar Perfil"></button>
+                  </div>
+                </div>
+              </div>
+            </p-panel>  
+          </div>
+        </div>
+        <br>
+        <div class="ui-g">
+          <div class="ui-g-12 pt-0">
+            <div class="card ui-g-12 p-0">
+              <tabela-dinamica
+                [value]="perfisLista"
+                [columns]="colunasTabelaPerfil"
+                [rows]="10">
+              </tabela-dinamica>
+            </div>
+          </div>
+        </div>
+        
+      </p-tabPanel>
+
+      <!-- FIM PERFIS DE ACESSO -->
+
+      <!-- PRIVILÉGIOS -->
+
+      <p-tabPanel header="Privilégios" leftIcon="ui-icon-lock-open">
+        <pxt-toolbar-buttons *ngIf="editandoPrivilegio">
+          <div class="ui-toolbar-group-left">
+            <div class="ui-g">
+              <div class="ui-g-12 ui-lg-3">
+                <button pButton type="button" label="Salvar" icon="ui-icon-save" pTooltip="Salvar Privilégio"></button>
+              </div>
+            </div>
+          </div>
+        </pxt-toolbar-buttons>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 pb-0">
+            <p-panel id="addDetalhe">
+              <div class="ui-g">
+                <div class="ui-g ui-g-12">
+                  <div class="ui-g-12 ui-lg-2 pt-10">
+                    <span class="md-inputfield">
+                      <input pInputText type="number" [(ngModel)]="privilegio.codigo" [disabled]="true">
+                      <label>Código</label>
+                    </span>
+                  </div>
+                  <div class="ui-g-12 ui-lg-6 pt-10">
+                    <span class="md-inputfield">
+                      <input pInputText type="text" [(ngModel)]="privilegio.descricao" uppercase>
+                      <label>Descrição</label>
+                    </span>
+                  </div>
+                  <div class="ui-g-12 ui-lg-4 pt-10">
+                    <span class="md-inputfield">
+                      <input pInputText type="text" [(ngModel)]="privilegio.tela" uppercase>
+                      <label>Tela</label>
+                    </span>
+                  </div>
+                </div>
+                <div class="ui-g ui-g-12">
+                  <div class="ui-g-12 pt-10">
+                    <span class="md-inputfield">
+                      <input pInputText type="text" [(ngModel)]="privilegio.observacao" uppercase>
+                      <label>Observação</label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </p-panel>  
+          </div>
+        </div>
+        <br>
+        <div class="ui-g">
+          <div class="ui-g-12 pt-0">
+            <div class="card ui-g-12 p-0">
+              <tabela-dinamica
+                [value]="listaPrivilegios"
+                [columns]="colunasTabelaPrivilegio"
+                [rows]="10">
+              </tabela-dinamica>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      
+      <!-- FIM PRIVILÉGIOS -->
+      
+      <!-- PERFIL X PRIVILÉGIO -->
+
+      <p-tabPanel header="Perfil x Privilégio" leftIcon="ui-icon-link">
+        <pxt-toolbar-buttons>
+          <div class="ui-toolbar-group-left">
+            <div class="ui-g">
+              <div class="ui-g-12 ui-lg-3">
+                <button pButton type="button" label="Salvar" icon="ui-icon-save" ></button>
+              </div>
+            </div>
+          </div>
+        </pxt-toolbar-buttons>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 pb-0">
+            <p-panel id="addDetalhe">
+              <div class="ui-g">
+                <div class="ui-g-12 ui-lg-3 pt-5" >
+                  <div class="ui-g-12">
+                    <span class="ui-float-label">
+                      <p-dropdown id="perfis" 
+                        [options]="perfis" 
+                        [autoDisplayFirst]="false" 
+                        [style]="{'width':'100%'}"
+                        [(ngModel)]="codigoPerfil"
+                        (onChange)="buscarPerfilPrivilegio()">
+                      </p-dropdown>
+                      <label for="perfis">Perfil</label>
+                    </span>
+                  </div>
+                </div>
+                <br>
+                <div class="ui-g-12">
+                  <div class="ui-g-6">
+                    <div class="ui-g-12 pt-0">
+                      <div class="card ui-g-12 p-0">
+                        <tabela-dinamica
+                          [caption]="'Privilégios Disponiveis'"
+                          [value]="privilegiosDisponiveis"
+                          [columns]="colunasTabelaPrivilegiosDisponiveis"
+                          [rows]="10">
+                        </tabela-dinamica>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui-g-6">
+                    <div class="ui-g-12 pt-0">
+                      <div class="card ui-g-12 p-0">
+                        <tabela-dinamica
+                          [caption]="'Privilégios do Perfil'"
+                          [value]="privilegiosPerfil"
+                          [columns]="colunasTabelaPrivilegiosAssociados"
+                          [rows]="10">
+                        </tabela-dinamica>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+        </div>
+      </p-tabPanel>
+
+      <!-- FIM PERFIL X PRIVILÉGIO -->
+
+    </p-tabView>
+  </div>
+</div>
+<div>&nbsp;</div>
+
+<!-- Dialog confirmação delete Perfil -->
+<p-dialog 
+#dialogDeletarPerfil
+header="Excluir Perfil" 
+modal="true" showEffect="fade" width="340" minHeight="150"
+[(visible)]="showDialogDelete"
+[responsive]="true">
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 pb-0">
+    <div class="ui-g-12 ui-lg-12 pt-5">
+      <span>{{mensagem}}</span>
+    </div>
+    <div class="ui-g-12 ui-lg-6 ">
+      <button pButton type="button" class="red-btn flat" label="SIM" icon="ui-icon-delete" (click)="deletarPerfil()"></button>
+    </div>
+    <div class="ui-g-12 ui-lg-6 ">
+      <button pButton type="button" class="grey-btn flat" label="Não" icon="ui-icon-cancel" (click)="fecharDialogDeletePerfil()" ></button>
+    </div>
+  </div>
+</div>
+
+</p-dialog>
+
+
+<!-- Dialog confirmação delete Perfil -->
+<p-dialog 
+#dialogDeletarPrivilegio
+header="Excluir Privilégio" 
+modal="true" showEffect="fade" width="340" minHeight="150"
+[(visible)]="showDialogDeletePrivilegio"
+[responsive]="true">
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 pb-0">
+    <div class="ui-g-12 ui-lg-12 pt-5">
+      <span>{{mensagemDialogoPrivilegio}}</span>
+    </div>
+    <div class="ui-g-12 ui-lg-6 ">
+      <button pButton type="button" class="red-btn flat" label="SIM" icon="ui-icon-delete" (click)="deletarPrivilegio()"></button>
+    </div>
+    <div class="ui-g-12 ui-lg-6 ">
+      <button pButton type="button" class="grey-btn flat" label="Não" icon="ui-icon-cancel" (click)="fecharDialogDeletePrivilegio()" ></button>
+    </div>
+  </div>
+</div>
+
+</p-dialog>

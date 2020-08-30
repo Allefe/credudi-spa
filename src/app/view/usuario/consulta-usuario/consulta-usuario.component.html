@@ -1,0 +1,95 @@
+<pxt-toolbar-buttons>
+  <div class="ui-toolbar-group-left">
+    <div class="ui-g">
+      <div class="ui-g-12 ui-lg-3">
+        <button pButton type="button" label="Novo" icon="ui-icon-add" [routerLink]="'/usuario/cadastro'"></button>
+      </div>
+      <div class="ui-g-12 ui-lg-3">
+        <button pButton type="button" label="Limpar" icon="ui-icon-delete" (click)="limpar()"></button>
+      </div>
+      <div class="ui-g-12 ui-lg-3">
+        <button pButton type="button" label="Pesquisar" icon="ui-icon-search" (click)="buscar()"></button>
+      </div>
+    </div>
+  </div>
+</pxt-toolbar-buttons>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 pb-0">
+    <div class="card ui-g-12">
+      <p-panel>
+        <p-header>Filtros Usuário <i class="ui-icon-person" style="vertical-align: middle;"></i></p-header>
+          <div class="ui-g">
+          <div class="ui-g ui-g-12">
+            <div class="ui-g-12 ui-lg-2 pt-10">
+              <span class="md-inputfield">
+                  <input pInputText type="text"  [(ngModel)]="usuario.codigo" (keyup.enter)="buscar()" numbersOnly>
+                  <label>Código</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="md-inputfield">
+                <input pInputText type="text" [(ngModel)]="usuario.nome" uppercase (keyup.enter)="buscar()">
+                <label>Nome</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3 pt-10">
+              <span class="md-inputfield">
+                <input pInputText type="text" [(ngModel)]="usuario.login"  uppercase (keyup.enter)="buscar()">
+                <label>Login</label>
+              </span>
+            </div>
+            <div class="ui-g-12 ui-lg-3" style="padding-top: 8px;">
+              <span class="ui-float-label">
+                <p-dropdown id="status" 
+                  [options]="status" 
+                  [autoDisplayFirst]="false" 
+                  [style]="{'width':'100%'}" 
+                  [(ngModel)]="usuario.status"
+                  (onChange)="buscar()">
+                </p-dropdown>
+                <label for="status">Status</label>
+              </span>
+            </div>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+  </div>
+</div>
+
+<div class="ui-g">
+  <div class="ui-g-12 pt-0">
+    <div class="card ui-g-12 p-0">
+      <tabela-dinamica
+        [value]="usuarios"
+        [columns]="colunasTabelaUsuarios"
+        [rows]="9">
+      </tabela-dinamica>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog confirmação delete usuario -->
+<p-dialog 
+  #dialogDeletarUsuario
+  header="Excluir Usuario" 
+  modal="true" showEffect="fade" width="340" minHeight="150"
+  [(visible)]="mostrarDialogDelete"
+  [responsive]="true">
+
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 pb-0">
+      <div class="ui-g-12 ui-lg-12 pt-5">
+        <span>{{mensagem}}</span>
+      </div>
+      <div class="ui-g-12 ui-lg-6 ">
+        <button pButton type="button" class="red-btn flat" label="SIM" icon="ui-icon-delete" (click)="deletar()"></button>
+      </div>
+      <div class="ui-g-12 ui-lg-6 ">
+        <button pButton type="button" class="grey-btn flat" label="Não" icon="ui-icon-cancel" (click)="fecharDialogDelete()" ></button>
+      </div>
+    </div>
+  </div>
+
+</p-dialog>

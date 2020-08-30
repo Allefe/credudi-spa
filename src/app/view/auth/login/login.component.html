@@ -1,0 +1,44 @@
+<div class="cont shadow-box ui-shadow-4">
+  <p-toast key="pxt-notificacao" ></p-toast>
+  <div class="form sign-in">
+    <div class="logo-peixoto">
+      <img src="./assets/images/Logo.png" alt="">
+    </div>
+    <div class="ui-g ui-fluid login">
+      <div class="ui-g-12 input-login">
+        <div class="ui-g-12">
+          <span class="ui-float-label">
+            <input type="text" name="username" id="username" pInputText (keyup.enter)="doLogin()" [(ngModel)]="username" [ngClass]="{'ng-dirty ng-invalid': usuarioInvalido, 'ui-state-filled': username !== undefined}">
+            <label for="username">Usuário</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12 input-login">
+        <div class="ui-g-12">
+          <span class="ui-float-label">
+            <input type="password" id="password" pInputText (keyup.enter)="doLogin()" [(ngModel)]="password" [ngClass]="{'ng-dirty ng-invalid': senhaInvalida}">
+            <label for="password">Senha</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-12">
+          <button class="submit" (click)="doLogin()">ENTRAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="sub-cont">
+
+    <div class="img">
+      <div class="img__text m--up">
+        <h3>Bem-Vindo(a) ao Sistema de Manutenção de Convênios</h3>
+        <h3>Peixoto Mais+</h3>
+      </div>
+    </div>
+
+  </div>
+
+</div>  
